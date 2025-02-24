@@ -9,9 +9,17 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Allow frontend domain
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true
+  }));
 
 app.use('/api/auth', authRoutes);
+app.get("/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.KEY_ID })
+);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

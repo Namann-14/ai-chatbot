@@ -3,6 +3,7 @@ import { protect } from '../middleware/authMiddleware.js';
 import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { checkout, paymentVerification } from '../controllers/paymentController.js';
 
 const router = express.Router();
 
@@ -83,5 +84,8 @@ const generateToken = (id) => {
     expiresIn: '30d',
   });
 };
+
+router.post('/checkout',checkout);
+router.post("/paymentverification",paymentVerification);
 
 export default router;
